@@ -2,9 +2,11 @@ import style from './home.module.css'
 
 export function Home() {
 
-    return(
-        <div>
-            <h1>HOME PAGE</h1>
+    return (
+        <div className={style.container}>
+            <h1 className={style.title}>
+                Bem-vindo a <span>Home</span>
+            </h1>
         </div>
     )
 }

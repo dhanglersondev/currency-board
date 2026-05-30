@@ -16,13 +16,13 @@ const router = createBrowserRouter([
             {
                 path: "/detail/:cripto",
                 element: <Detail />
-            },
-            {
-                path: "*",
-                element: <NotFound />
-            },
+            }
         ]
-    }
+    },
+    {
+        path: "*",
+        element: <NotFound />
+    },
 ])
 
 export { router }

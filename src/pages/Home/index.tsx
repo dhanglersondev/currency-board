@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getAssets } from "../../services/api";
 
 import style from "./home.module.css";
+import { BsSearch } from "react-icons/bs";
 
 interface CoinProps {
   id: string;
@@ -26,15 +27,28 @@ export function Home() {
 
   const navigate = useNavigate();
 
+  function formatCompactNumber(
+    value: string | number
+  ) {
+    return Intl.NumberFormat("en-US", {
+      notation: "compact",
+      maximumFractionDigits: 1,
+    }).format(Number(value));
+  }
+
   useEffect(() => {
     loadCoins();
   }, []);
 
-  async function loadCoins(currentOffset = 0) {
+  async function loadCoins(
+    currentOffset = 0
+  ) {
     try {
       setLoading(true);
 
-      const data = await getAssets(8 + currentOffset);
+      const data = await getAssets(
+        8 + currentOffset
+      );
 
       setCoins(data);
     } catch (error) {
@@ -46,14 +60,16 @@ export function Home() {
   }
 
   async function handleLoadMore() {
-    const newOffset = offset + 10;
+    const newOffset = offset + 8;
 
     setOffset(newOffset);
 
     try {
       setLoading(true);
 
-      const data = await getAssets(8 + newOffset);
+      const data = await getAssets(
+        8 + newOffset
+      );
 
       setCoins(data);
     } catch (error) {
@@ -63,19 +79,47 @@ export function Home() {
     }
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
-    if (input.trim() === "") {
-      alert("Por favor, informe o nome da moeda.");
+    if (!input.trim()) {
+      alert(
+        "Por favor, informe o nome da moeda."
+      );
       return;
     }
 
-    navigate(`/coin/${input.toLowerCase()}`);
+    const coin = coins.find(
+      (item) =>
+        item.name.toLowerCase() ===
+          input.toLowerCase() ||
+        item.symbol.toLowerCase() ===
+          input.toLowerCase()
+    );
+
+    if (!coin) {
+      alert("Moeda não encontrada.");
+      return;
+    }
+
+    navigate(`/coin/${coin.id}`);
   }
 
   return (
     <main className={style.container}>
+      <div className={style.hero}>
+        <h1>
+          Currency
+          <span>Board</span>
+        </h1>
+
+        <span className={style.badge}>
+          🚀 Mercado Cripto em Tempo Real
+        </span>
+      </div>
+
       <form
         className={style.form}
         onSubmit={handleSubmit}
@@ -90,7 +134,7 @@ export function Home() {
         />
 
         <button type="submit">
-          Buscar
+          <BsSearch />
         </button>
       </form>
 
@@ -145,6 +189,10 @@ export function Home() {
                       className={
                         style.coinIcon
                       }
+                      onError={(e) => {
+                        e.currentTarget.style.display =
+                          "none";
+                      }}
                     />
 
                     <div
@@ -172,19 +220,14 @@ export function Home() {
                 </td>
 
                 <td data-label="Valor de Mercado">
-                  ${" "}
-                  {Number(
+                  $
+                  {formatCompactNumber(
                     coin.marketCapUsd
-                  ).toLocaleString(
-                    "en-US",
-                    {
-                      maximumFractionDigits: 0,
-                    }
                   )}
                 </td>
 
                 <td data-label="Preço">
-                  ${" "}
+                  $
                   {Number(
                     coin.priceUsd
                   ).toLocaleString(
@@ -197,14 +240,9 @@ export function Home() {
                 </td>
 
                 <td data-label="Volume (24h)">
-                  ${" "}
-                  {Number(
+                  $
+                  {formatCompactNumber(
                     coin.volumeUsd24Hr
-                  ).toLocaleString(
-                    "en-US",
-                    {
-                      maximumFractionDigits: 0,
-                    }
                   )}
                 </td>
 

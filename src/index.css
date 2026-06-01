@@ -32,7 +32,7 @@ body {
     line-height: 1.5;
     color: var(--text);
     background: linear-gradient(180deg, #071020 0%, #0b1220 100%);
-    overflow: hidden; /* prevent vertical page scroll */
+    
 }
 
 /* App layout */

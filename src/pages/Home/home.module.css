@@ -1,0 +1,337 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.form {
+  width: 100%;
+  max-width: 950px;
+
+  display: flex;
+  gap: 12px;
+
+  padding: 20px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form input {
+  flex: 1;
+
+  padding: 12px 16px;
+
+  border: 1px solid #d4d4d8;
+  border-radius: 8px;
+
+  font-size: 16px;
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form button {
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 24px;
+
+  background: #2563eb;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.form button:hover {
+  background: #1d4ed8;
+}
+
+.table {
+  width: 100%;
+  max-width: 950px;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+  overflow: hidden;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.table thead {
+  background: #2563eb;
+}
+
+.table th {
+  padding: 16px;
+  color: #fff;
+  text-align: left;
+  font-weight: 600;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid #e4e4e7;
+}
+
+.row {
+  transition: background-color 0.2s ease;
+}
+
+.row:hover {
+  background: #f8fafc;
+}
+
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-weight: 700;
+}
+
+.coinLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  text-decoration: none;
+  color: #111827;
+
+  font-weight: 700;
+
+  transition: 0.2s;
+}
+
+.coinLink:hover {
+  color: #2563eb;
+}
+
+.coinIcon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.coinInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.coinName {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.symbol {
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.marketCap {
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.price {
+  color: #059669;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.volume {
+  color: #ea580c;
+  font-weight: 700;
+}
+
+.positive {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  background: #dcfce7;
+  color: #15803d;
+
+  font-weight: 700;
+}
+
+.negative {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  background: #fee2e2;
+  color: #dc2626;
+
+  font-weight: 700;
+}
+
+.loadMore {
+  border: none;
+
+  padding: 14px 28px;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.loadMore:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.loadMore:active {
+  transform: translateY(0);
+}
+
+/* ========================= */
+/* RESPONSIVIDADE MOBILE */
+/* ========================= */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .form {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .form button {
+    width: 100%;
+  }
+
+  .table {
+    display: block;
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .table tr {
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+    border-radius: 12px;
+
+    padding: 16px;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #e4e4e7;
+  }
+
+  .table td:last-child {
+    border-bottom: none;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color: #374151;
+  }
+
+  .coinLink {
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .coinInfo {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .coinIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .rank {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .price,
+  .marketCap,
+  .volume,
+  .positive,
+  .negative {
+    font-size: 0.9rem;
+  }
+
+  .loadMore {
+    width: 100%;
+  }
+}

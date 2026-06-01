@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getAsset } from "../../services/api";
 
+import style from "./coin.module.css";
+
 interface CoinProps {
   id: string;
   rank: string;
@@ -18,33 +20,27 @@ interface CoinProps {
 export function Coin() {
   const { id } = useParams();
 
-  const [coin, setCoin] =
-    useState<CoinProps | null>(null);
-
-  const [loading, setLoading] =
-    useState(true);
+  const [coin, setCoin] = useState<CoinProps | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadCoin() {
-      if (!id) return
+      if (!id) return;
 
       try {
-        const data = await getAsset(id)
-
-        setCoin(data)
+        const data = await getAsset(id);
+        setCoin(data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
-    loadCoin()
+    loadCoin();
   }, [id]);
 
-  function formatCompactNumber(
-    value: string | number
-  ) {
+  function formatCompactNumber(value: string | number) {
     return Intl.NumberFormat("en-US", {
       notation: "compact",
       maximumFractionDigits: 1,
@@ -53,149 +49,113 @@ export function Coin() {
 
   if (loading) {
     return (
-      <main>
-        <h2>Carregando...</h2>
+      <main className={style.container}>
+        <h2 className={style.loading}>Carregando...</h2>
       </main>
     );
   }
 
   if (!coin) {
     return (
-      <main>
-        <h2>Moeda não encontrada.</h2>
+      <main className={style.container}>
+        <h2 className={style.error}>Moeda não encontrada.</h2>
       </main>
     );
   }
 
-  const isPositive =
-    Number(coin.changePercent24Hr) >= 0;
+  const isPositive = Number(coin.changePercent24Hr) >= 0;
 
   return (
-    <main
-      style={{
-        maxWidth: "900px",
-        margin: "40px auto",
-        padding: "0 20px",
-      }}
-    >
-      <Link to="/">
-        ← Voltar
-      </Link>
+    <main className={style.container}>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-          marginTop: "24px",
-          marginBottom: "32px",
-        }}
-      >
-        <img
-          src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
-          alt={coin.name}
-          width={64}
-          height={64}
-        />
+      {/* HEADER (clicável) */}
+      <div className={style.hero}>
+        <Link to="/" className={style.titleLink}>
+          <h1>
+            Currency<span>Board</span>
+          </h1>
+        </Link>
 
-        <div>
-          <h1>{coin.name}</h1>
-          <span>{coin.symbol}</span>
-        </div>
+        <span className={style.badge}>
+          🚀 Mercado Cripto em Tempo Real
+        </span>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "16px",
-        }}
-      >
-        <div>
-          <strong>Rank</strong>
-          <p>#{coin.rank}</p>
+      {/* CARD PRINCIPAL */}
+      <section className={style.cardContainer}>
+
+        {/* COIN HEADER */}
+        <div className={style.coinHeader}>
+          <img
+            src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`}
+            alt={coin.name}
+            className={style.icon}
+          />
+
+          <div>
+            <h2>
+              {coin.name}
+              <span className={style.symbol}>
+                {coin.symbol}
+              </span>
+            </h2>
+
+            <p className={style.rank}>
+              Rank #{coin.rank}
+            </p>
+          </div>
         </div>
 
-        <div>
-          <strong>Preço</strong>
-          <p>
+        {/* PRICE */}
+        <div className={style.priceBox}>
+          <span>Preço atual</span>
+
+          <h2>
             $
-            {Number(
-              coin.priceUsd
-            ).toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 6,
-            })}
-          </p>
-        </div>
-
-        <div>
-          <strong>
-            Valor de Mercado
-          </strong>
-          <p>
-            $
-            {formatCompactNumber(
-              coin.marketCapUsd
+            {Number(coin.priceUsd).toLocaleString(
+              "en-US",
+              {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 6,
+              }
             )}
-          </p>
-        </div>
+          </h2>
 
-        <div>
-          <strong>
-            Volume 24h
-          </strong>
-          <p>
-            $
-            {formatCompactNumber(
-              coin.volumeUsd24Hr
-            )}
-          </p>
-        </div>
-
-        <div>
-          <strong>Supply</strong>
-          <p>
-            {formatCompactNumber(
-              coin.supply
-            )}
-          </p>
-        </div>
-
-        <div>
-          <strong>
-            Supply Máximo
-          </strong>
-          <p>
-            {coin.maxSupply
-              ? formatCompactNumber(
-                  coin.maxSupply
-                )
-              : "∞"}
-          </p>
-        </div>
-
-        <div>
-          <strong>
-            Mudança 24h
-          </strong>
-          <p
-            style={{
-              color: isPositive
-                ? "#00c853"
-                : "#ff5252",
-              fontWeight: "bold",
-            }}
-          >
+          <p className={isPositive ? style.positive : style.negative}>
             {isPositive ? "+" : ""}
-            {Number(
-              coin.changePercent24Hr
-            ).toFixed(2)}
-            %
+            {Number(coin.changePercent24Hr).toFixed(2)}%
+            {" "}(24h)
           </p>
         </div>
-      </div>
+
+        {/* GRID */}
+        <section className={style.grid}>
+          <div className={style.card}>
+            <span>Market Cap</span>
+            <p>${formatCompactNumber(coin.marketCapUsd)}</p>
+          </div>
+
+          <div className={style.card}>
+            <span>Volume (24h)</span>
+            <p>${formatCompactNumber(coin.volumeUsd24Hr)}</p>
+          </div>
+
+          <div className={style.card}>
+            <span>Supply</span>
+            <p>{formatCompactNumber(coin.supply)}</p>
+          </div>
+
+          <div className={style.card}>
+            <span>Max Supply</span>
+            <p>
+              {coin.maxSupply
+                ? formatCompactNumber(coin.maxSupply)
+                : "∞"}
+            </p>
+          </div>
+        </section>
+
+      </section>
     </main>
   );
 }

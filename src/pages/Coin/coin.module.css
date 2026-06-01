@@ -1,0 +1,247 @@
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 14px;
+}
+
+/* ==========================
+   HERO (MESMO PADRÃO HOME)
+========================== */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+  font-weight: 800;
+
+  color: #ffffff;
+  letter-spacing: -1px;
+
+  cursor: pointer;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 14px;
+  margin-top: 10px;
+
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 999px;
+
+  background: rgba(59, 130, 246, 0.08);
+
+  color: #60a5fa;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ==========================
+   CARD PRINCIPAL (GLASS PREMIUM)
+========================== */
+
+.cardContainer {
+  background: rgba(24, 24, 27, 0.85);
+  border: 1px solid rgba(39, 39, 42, 0.8);
+  border-radius: 18px;
+
+  padding: 26px;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ==========================
+   COIN HEADER
+========================== */
+
+.coinHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 22px;
+}
+
+.icon {
+  width: 54px;
+  height: 54px;
+
+  object-fit: contain;
+}
+
+.coinHeader h2 {
+  font-size: 1.6rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.symbol {
+  margin-left: 10px;
+  font-size: 0.95rem;
+  color: #a1a1aa;
+}
+
+.rank {
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ==========================
+   PRICE BOX (DASHBOARD STYLE)
+========================== */
+
+.priceBox {
+  background: #111827;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+
+  padding: 22px;
+  margin-bottom: 22px;
+
+  transition: 0.25s ease;
+}
+
+.priceBox:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.priceBox span {
+  color: #a1a1aa;
+  font-size: 0.85rem;
+}
+
+.priceBox h2 {
+  color: #fff;
+  font-size: 2.2rem;
+  margin: 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.priceBox p {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ==========================
+   GRID (CARDS PREMIUM)
+========================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+
+  padding: 18px;
+
+  transition: all 0.25s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at top left,
+    rgba(59, 130, 246, 0.08),
+    transparent 60%
+  );
+
+  opacity: 0;
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card span {
+  color: #a1a1aa;
+  font-size: 0.85rem;
+}
+
+.card p {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* ==========================
+   COLORS
+========================== */
+
+.positive {
+  color: #22c55e;
+}
+
+.negative {
+  color: #ef4444;
+}
+
+/* ==========================
+   STATES
+========================== */
+
+.loading,
+.error {
+  color: #fff;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .priceBox h2 {
+    font-size: 1.8rem;
+  }
+
+  .coinHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+}
